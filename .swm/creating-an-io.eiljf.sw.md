@@ -1,0 +1,179 @@
+---
+id: eiljf
+name: Creating an IO
+file_version: 1.0.2
+app_version: 0.8.0-0
+file_blobs:
+  asv_bench/benchmarks/io/json.py: bb09fe0ff634d4037669e11dba297b2ffb321766
+  asv_bench/benchmarks/pandas_vb_common.py: d3168bde0a7839f55fcac5f0b1b1d5bc3c982b6a
+  asv_bench/benchmarks/io/hdf.py: 4a2c1c872e6ebc8358299621218149a05bbbb2db
+  asv_bench/benchmarks/io/pickle.py: c71cdcdcc5c59da23186b5b14fbd88508dea7ff4
+---
+
+Understanding IOs, how they work, and how to add new ones, is important - and this document will describe just that.
+
+An IO is {Explain what a IO is and its role in the system}
+
+In order to create a new IO, we create a class that inherits from `BaseIO`[<sup id="Z2iSn7U">↓</sup>](#f-Z2iSn7U).
+
+Some examples of `BaseIO`[<sup id="Z2iSn7U">↓</sup>](#f-Z2iSn7U)s are `HDF`[<sup id="24p4Ua">↓</sup>](#f-24p4Ua), `Pickle`[<sup id="1c6rrY">↓</sup>](#f-1c6rrY), `HDFStoreDataFrame`[<sup id="ZmAj3I">↓</sup>](#f-ZmAj3I), and `NormalizeJSON`[<sup id="Z2s5gFB">↓</sup>](#f-Z2s5gFB).
+
+<br/>
+
+## TL;DR - How to Add a `BaseIO`[<sup id="Z2iSn7U">↓</sup>](#f-Z2iSn7U)
+
+1. Create a new class inheriting from `BaseIO`[<sup id="Z2iSn7U">↓</sup>](#f-Z2iSn7U)&nbsp;
+   - Place the file in one of the directories under [[sym:./asv_bench/benchmarks({"type":"path","text":"asv_bench/benchmarks","path":"asv_bench/benchmarks"})]],
+     e.g. `ReadJSONLines`[<sup id="2san4W">↓</sup>](#f-2san4W) is defined in [[sym:./asv_bench/benchmarks/io/json.py({"type":"path","text":"asv_bench/benchmarks/io/json.py","path":"asv_bench/benchmarks/io/json.py"})]].
+2. Define `fname`[<sup id="vLAsF">↓</sup>](#f-vLAsF), `param_names`[<sup id="YbVow">↓</sup>](#f-YbVow), and `params`[<sup id="1D4cvm">↓</sup>](#f-1D4cvm).
+2. Implement `setup`[<sup id="ZfBYjy">↓</sup>](#f-ZfBYjy).
+4. **Profit** 💰
+
+<br/>
+
+## The Full Story
+We'll follow the implementation of `ReadJSONLines`[<sup id="2san4W">↓</sup>](#f-2san4W) for this example.
+
+A `ReadJSONLines`[<sup id="2san4W">↓</sup>](#f-2san4W) is {Explain what ReadJSONLines is and how it works with the IO interface}
+
+<br/>
+
+## Steps to Adding a new BaseIO
+
+<br/>
+
+### 1\. Inherit from `BaseIO`[<sup id="Z2iSn7U">↓</sup>](#f-Z2iSn7U).
+All `BaseIO`[<sup id="Z2iSn7U">↓</sup>](#f-Z2iSn7U)s are defined under [[sym:./asv_bench/benchmarks({"type":"path","text":"asv_bench/benchmarks","path":"asv_bench/benchmarks"})]].
+
+<br/>
+
+We first need to define our class in the relevant file, and inherit from `BaseIO`[<sup id="Z2iSn7U">↓</sup>](#f-Z2iSn7U):
+<!-- NOTE-swimm-snippet: the lines below link your snippet to Swimm -->
+### 📄 asv_bench/benchmarks/io/json.py
+```python
+⬜ 40             read_json(self.fname, orient=orient)
+⬜ 41     
+⬜ 42     
+🟩 43     class ReadJSONLines(BaseIO):
+⬜ 44     
+⬜ 45         fname = "__test_lines__.json"
+⬜ 46         params = ["int", "datetime"]
+```
+
+<br/>
+
+### 2\. Define `fname`[<sup id="vLAsF">↓</sup>](#f-vLAsF), `param_names`[<sup id="YbVow">↓</sup>](#f-YbVow), and `params`[<sup id="1D4cvm">↓</sup>](#f-1D4cvm)
+Every `BaseIO`[<sup id="Z2iSn7U">↓</sup>](#f-Z2iSn7U) should define these variables:
+- `fname`[<sup id="vLAsF">↓</sup>](#f-vLAsF): {Explain what the value should be}
+- `param_names`[<sup id="YbVow">↓</sup>](#f-YbVow): {Explain what the value should be}
+- `params`[<sup id="1D4cvm">↓</sup>](#f-1D4cvm): {Explain what the value should be}
+
+<br/>
+
+
+<!-- NOTE-swimm-snippet: the lines below link your snippet to Swimm -->
+### 📄 asv_bench/benchmarks/io/json.py
+```python
+⬜ 42     
+⬜ 43     class ReadJSONLines(BaseIO):
+⬜ 44     
+🟩 45         fname = "__test_lines__.json"
+🟩 46         params = ["int", "datetime"]
+🟩 47         param_names = ["index"]
+⬜ 48     
+⬜ 49         def setup(self, index):
+⬜ 50             N = 100000
+```
+
+<br/>
+
+### 3\. Implement setup
+
+<br/>
+
+The goal of `setup`[<sup id="ZfBYjy">↓</sup>](#f-ZfBYjy) is to {Explain setup's role}.
+
+<br/>
+
+In this example, `ReadJSONLines`[<sup id="2san4W">↓</sup>](#f-2san4W), we {Explain what's happening in this implementation}
+<!-- NOTE-swimm-snippet: the lines below link your snippet to Swimm -->
+### 📄 asv_bench/benchmarks/io/json.py
+```python
+⬜ 46         params = ["int", "datetime"]
+⬜ 47         param_names = ["index"]
+⬜ 48     
+🟩 49         def setup(self, index):
+🟩 50             N = 100000
+🟩 51             indexes = {
+🟩 52                 "int": np.arange(N),
+🟩 53                 "datetime": date_range("20000101", periods=N, freq="H"),
+🟩 54             }
+🟩 55             df = DataFrame(
+🟩 56                 np.random.randn(N, 5),
+🟩 57                 columns=[f"float_{i}" for i in range(5)],
+🟩 58                 index=indexes[index],
+🟩 59             )
+🟩 60             df.to_json(self.fname, orient="records", lines=True)
+⬜ 61     
+⬜ 62         def time_read_json_lines(self, index):
+⬜ 63             read_json(self.fname, orient="records", lines=True)
+```
+
+<br/>
+
+<!-- THIS IS AN AUTOGENERATED SECTION. DO NOT EDIT THIS SECTION DIRECTLY -->
+### Swimm Note
+
+<span id="f-Z2iSn7U">BaseIO</span>[^](#Z2iSn7U) - "asv_bench/benchmarks/pandas_vb_common.py" L63
+```python
+class BaseIO:
+```
+
+<span id="f-vLAsF">fname</span>[^](#vLAsF) - "asv_bench/benchmarks/io/json.py" L45
+```python
+    fname = "__test_lines__.json"
+```
+
+<span id="f-24p4Ua">HDF</span>[^](#24p4Ua) - "asv_bench/benchmarks/io/hdf.py" L114
+```python
+class HDF(BaseIO):
+```
+
+<span id="f-ZmAj3I">HDFStoreDataFrame</span>[^](#ZmAj3I) - "asv_bench/benchmarks/io/hdf.py" L16
+```python
+class HDFStoreDataFrame(BaseIO):
+```
+
+<span id="f-Z2s5gFB">NormalizeJSON</span>[^](#Z2s5gFB) - "asv_bench/benchmarks/io/json.py" L81
+```python
+class NormalizeJSON(BaseIO):
+```
+
+<span id="f-YbVow">param_names</span>[^](#YbVow) - "asv_bench/benchmarks/io/json.py" L47
+```python
+    param_names = ["index"]
+```
+
+<span id="f-1D4cvm">params</span>[^](#1D4cvm) - "asv_bench/benchmarks/io/json.py" L46
+```python
+    params = ["int", "datetime"]
+```
+
+<span id="f-1c6rrY">Pickle</span>[^](#1c6rrY) - "asv_bench/benchmarks/io/pickle.py" L15
+```python
+class Pickle(BaseIO):
+```
+
+<span id="f-2san4W">ReadJSONLines</span>[^](#2san4W) - "asv_bench/benchmarks/io/json.py" L43
+```python
+class ReadJSONLines(BaseIO):
+```
+
+<span id="f-ZfBYjy">setup</span>[^](#ZfBYjy) - "asv_bench/benchmarks/io/json.py" L49
+```python
+    def setup(self, index):
+```
+
+<br/>
+
+This file was generated by Swimm. [Click here to view it in the app](https://app.swimm.io/repos/Z2l0aHViJTNBJTNBcGFuZGFzJTNBJTNBbmFkYXYtc3dpbW0=/docs/eiljf).
