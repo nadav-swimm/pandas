@@ -7,6 +7,37 @@ app_version: 1.0.2
 
 The easiest way to install Docusaurus is to use the command line tool that helps you scaffold a skeleton Docusaurus website. You can run this command anywhere in a new empty repository or within an existing repository, it will create a new directory containing the scaffolded files.
 
+<br/>
+
+<br/>
+
+<br/>
+
+jjj
+<!-- NOTE-swimm-snippet: the lines below link your snippet to Swimm -->
+### 📄 .gitignore
+```gitignore
+3      .#*
+4      *\#*\#
+5      [#]*#
+6      *~
+7      *$
+8      *.bak
+9      *flymake*
+10     *.iml
+11     *.kdev4
+12     *.log
+13     *.swp
+14     *.pdb
+15     *.zip
+16     .project
+17     .pydevproject
+18     .settings
+19     .idea
+```
+
+<br/>
+
 ```
 npx create-docusaurus@latest my-website classic
 ```
