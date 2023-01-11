@@ -1,6 +1,6 @@
 ---
 id: 9x3gj
-title: about pand
+title: about pandylist
 file_version: 1.1.1
 app_version: 1.0.2
 ---
