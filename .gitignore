@@ -15,7 +15,6 @@
 *.zip
 .project
 .pydevproject
-.settings
 .idea
 .vagrant
 .noseids
