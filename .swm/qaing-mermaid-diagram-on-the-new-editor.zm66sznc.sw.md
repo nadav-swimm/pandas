@@ -10,7 +10,7 @@ sequenceDiagram
 note over Editor: Remember current value
 Editor ->> Store: Update
 Store -->> Editor: Update flows back
-note over Editor: If the new value is the same<br />object as the saved current value:<br />Skip side effects
+note over Editor: If the new value is the same <br/>object as the saved current value: <br/>Skip side effects
 ```
 
 ```mermaid
