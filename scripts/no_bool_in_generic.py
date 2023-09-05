@@ -71,7 +71,6 @@ def check_for_bool_in_generic(content: str) -> tuple[bool, str]:
 
 def main(argv: Sequence[str] | None = None) -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("paths", nargs="*")
     args = parser.parse_args(argv)
 
     for path in args.paths:
