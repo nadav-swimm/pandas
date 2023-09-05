@@ -37,7 +37,7 @@ def visit(tree: ast.Module) -> dict[int, list[int]]:
             else:
                 next_in_annotation = in_annotation
             if isinstance(value, ast.AST):
-                nodes.append((next_in_annotation, value))
+                nodes.append((next_in_annotation,  value))
             elif isinstance(value, list):
                 for value in reversed(value):
                     if isinstance(value, ast.AST):
