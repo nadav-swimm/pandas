@@ -16,14 +16,7 @@ from __future__ import annotations
 import pathlib
 import sys
 
-DOC_PATH = pathlib.Path("doc/source/getting_started/install.rst").resolve()
-CI_PATH = next(
-    pathlib.Path("ci/deps").absolute().glob("actions-*-minimum_versions.yaml")
-)
-CODE_PATH = pathlib.Path("pandas/compat/_optional.py").resolve()
-# pandas package is not available
-# in pre-commit environment
-sys.path.append("pandas/compat")
+
 sys.path.append("pandas/util")
 import version
 
