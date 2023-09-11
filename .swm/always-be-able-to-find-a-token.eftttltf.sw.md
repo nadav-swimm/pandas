@@ -7,7 +7,9 @@ app_version: 1.17.0
 
 <br/>
 
-[[sym-text:| alias for npx(2uLMtY)]]
+[[sym-text:setup(self, dtype):(lhjb3)]]
+
+<br/>
 
 <br/>
 
